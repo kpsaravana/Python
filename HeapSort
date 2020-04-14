@@ -1,0 +1,61 @@
+#Algorithm
+#Assume the Array Index starts from 1 instead of 0
+#Convert Array as Binary Tree.
+#Each parent node position is N(lenght of Array)/2
+#Left Leaf position as 2 * I where I as current leaf parent position
+#Right Leaf position as 2 * I + 1 where I as current leaf parent position
+#Swap the Leaf with parent when the leaf > parent called max heap.. Continue for the entire tree until its heaped
+#once Heaped, now call the sort
+#remove the top node which is max and swap the last leaf in the tree as Root node and do Heap.
+#Do until the tree reduce zero length
+
+l = [ 68, 125, 43,2221, 508, 709, 2000, 4]
+
+s = []
+def heapify(h,ln):
+
+  for i in range(0,ln):
+    if (i==0):
+      pn = i +1
+    else:
+      pn = int((i+1)/2)
+      
+      if (h[i] > h[pn-1]):
+        h[pn-1],h[i] = h[i],h[pn-1]  
+        
+        if (pn > 1):
+          heapify(h,len(h[0:pn]))
+
+  return h;
+
+  
+
+
+def maxheap(h):
+  return(h[0])  
+
+def minheap(h):
+  return(h[len(h)-1])  
+
+def swapmaxheap(h):
+  h[0],h[len(h)-1] = h[len(h)-1],h[0]
+  return h 
+
+def heapsort(l):
+
+  hp = heapify(l,len(l))
+  #print("Heapify is ",hp)    
+  hp = swapmaxheap(hp)
+  
+  s.insert(0,hp.pop())
+  #print("Sorted List is ",s)
+  #print("after max heap ",hp)
+  #print("Heap LEngth ",len(hp))
+  if (len(hp) > 0):
+    heapsort(hp)
+  
+  return s   
+  
+
+
+print(heapsort(l))
